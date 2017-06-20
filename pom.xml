@@ -11,6 +11,7 @@
         <module>pojo</module>
         <module>service</module>
         <module>mapper</module>
+        <module>web</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
