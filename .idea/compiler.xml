@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="common" />
         <module name="mapper" />
         <module name="pojo" />
         <module name="service" />
@@ -13,7 +14,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="bootapp" target="1.6" />
+      <module name="boot-starter" target="1.6" />
+      <module name="common" target="1.6" />
       <module name="mapper" target="1.6" />
       <module name="pojo" target="1.6" />
       <module name="service" target="1.6" />
