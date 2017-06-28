@@ -28,6 +28,7 @@ import java.util.Set;
 public class HttpUtil {
     private static Logger LOG = Logger.getLogger(HttpUtil.class);
 
+
     public static String postJson(String url, String param, Map<String, String> headers) {
         String string = "";
         try {
@@ -37,6 +38,36 @@ public class HttpUtil {
             } else {
                 httpclient = new DefaultHttpClient();
             }
+            HttpPost httpPost = new HttpPost(url);
+            if (headers != null) {
+                for (String s : headers.keySet()) {
+                    httpPost.setHeader(s, headers.get(s));
+                }
+            }
+            StringEntity entity = new StringEntity(param, "utf-8");
+            httpPost.setEntity(entity);
+            HttpResponse response2 = httpclient.execute(httpPost);
+            try {
+                HttpEntity entity2 = response2.getEntity();
+                string = EntityUtils.toString(entity2, "utf-8");
+            } finally {
+                httpclient.getConnectionManager().shutdown();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
+    public static String postJsonWithCookies(String url, String param, Map<String, String> headers,CookieStore cookieStore) {
+        String string = "";
+        try {
+            DefaultHttpClient httpclient = null;
+            if (url.startsWith("https")) {
+                httpclient = new SSLClient();
+            } else {
+                httpclient = new DefaultHttpClient();
+            }
+            httpclient.setCookieStore(cookieStore);
             HttpPost httpPost = new HttpPost(url);
             if (headers != null) {
                 for (String s : headers.keySet()) {
