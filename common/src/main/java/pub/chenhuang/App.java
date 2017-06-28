@@ -82,6 +82,7 @@ public class App {
                 wxUserModelList.add(wxUserModel);
             }
             contactList=null;
+            WXUserModel wxUserModel=getByUserName(wxUserModelList,"老婆");
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -89,7 +90,7 @@ public class App {
     }
     public static  WXUserModel getByUserName(List<WXUserModel> wxUserModelList,String nickName){
         for (WXUserModel wxUserModel : wxUserModelList) {
-            if(wxUserModel.getNickName().equals(nickName)){
+            if(wxUserModel.getNickName().equals(nickName)||wxUserModel.getRemarkName().equals(nickName)){
                 return  wxUserModel;
             }
         }
