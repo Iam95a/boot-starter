@@ -1,4 +1,4 @@
-package pub.chenhuang.util;
+package pub.chenhuang.util.http;
 
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.Scheme;

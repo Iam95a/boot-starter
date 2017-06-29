@@ -13,6 +13,9 @@
         <module>mapper</module>
         <module>web</module>
         <module>common</module>
+        <module>wechat</module>
+        <module>wechat</module>
+        <module>weixin</module>
     </modules>
     <packaging>pom</packaging>
     <parent>

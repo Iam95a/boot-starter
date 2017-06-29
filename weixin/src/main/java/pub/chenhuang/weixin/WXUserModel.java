@@ -1,4 +1,4 @@
-package pub.chenhuang.model;
+package pub.chenhuang.weixin;
 
 /**
  * Created by ch on 2017/6/28.
