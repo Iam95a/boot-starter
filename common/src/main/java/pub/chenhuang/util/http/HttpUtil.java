@@ -163,12 +163,7 @@ public class HttpUtil {
         return getAndStoreCookie(url, "utf-8");
     }
 
-    /**
-     * 发送get请求
-     *
-     * @param url 请求地址
-     * @return String类型的返回信息
-     */
+
     private static String getWithCookie(String url, String charSet, CookieStore cookieStore) {
         String string = "";
         try {
