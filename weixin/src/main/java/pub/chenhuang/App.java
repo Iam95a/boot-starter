@@ -30,7 +30,7 @@ public class App {
         String redirectUri = scanThenLogin(qrCodeUrl);
         Map<String, String> loginParam = loginThenStoreCookieReturnLoginParam(redirectUri);
         listWXUserModel(loginParam);
-        WXUserModel wxUserModel = getByUserName(wxUserModels, "李芳芳");
+        WXUserModel wxUserModel = getByUserName(wxUserModels, "老婆");
         selfWXUserModel = getByUserName(wxUserModels, "gold great");
         while (true) {
             System.out.println(sendWXMsg(selfWXUserModel, wxUserModel, "你在干嘛啊", cookieStore, loginParam));
@@ -42,6 +42,7 @@ public class App {
         }
     }
 
+
     public static String getUuid() {
         String qrcodeUrl = "https://login.wx.qq.com/jslogin?appid=wx782c26e4c19acffb&redirect_uri=https%3A%2F%2Fwx.qq.com%2Fcgi-bin%2Fmmwebwx-bin%2Fwebwxnewloginpage&fun=new&lang=zh_CN&_=" + new Date().getTime();
         String qrcodeResult = HttpUtil.getByUTF8(qrcodeUrl, null);
@@ -49,6 +50,7 @@ public class App {
         String uuid = qrcodeResult.substring(24, qrcodeResult.length() - 1);
         return uuid;
     }
+
 
     public static String getQrCodeUrl(String uuid) {
         String qrcode = "https://login.weixin.qq.com/qrcode/" + uuid;
@@ -73,18 +75,23 @@ public class App {
             }
         }
     }
+
+
     public static Map<String, String> loginThenStoreCookieReturnLoginParam(String redirect_uri) {
 
         String result = saveCookieStoreThenReturnLoginParamStr(redirect_uri);
         Map<String, String> loginParam = parseLoginParamStr2Map(result);
         return loginParam;
     }
+
+
     public static String saveCookieStoreThenReturnLoginParamStr(String redirect_uri) {
         Map<String, Object> resultAndCookieStore = HttpUtil.getByUTF8AndStoreCookie(redirect_uri + "&fun=new&version=v2");
         String result = (String) resultAndCookieStore.get("result");
         cookieStore = (CookieStore) resultAndCookieStore.get("cookieStore");
         return result;
     }
+
 
     public static Map<String, String> parseLoginParamStr2Map(String loginParamStr) {
         try {
@@ -107,6 +114,7 @@ public class App {
         return null;
     }
 
+
     public static void listWXUserModelByWXContactStr(String wxContactStr) {
         Gson gson = new Gson();
         Map<String, Object> contactMap = gson.fromJson(wxContactStr, Map.class);
@@ -120,11 +128,11 @@ public class App {
     }
 
 
-
     public static void listWXUserModel(Map<String, String> loginParam) {
         String wxContactStr = listWxContact(loginParam, cookieStore);
         listWXUserModelByWXContactStr(wxContactStr);
     }
+
 
     public static String sendWXMsg(WXUserModel selfUserModel, WXUserModel wxUserModel, String content, CookieStore cookieStore, Map<String, String> loginParam) {
         String url = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxsendmsg?lang=zh_CN&pass_ticket=" +
@@ -150,6 +158,7 @@ public class App {
         return result;
     }
 
+
     public static void setBaseRequest(Map<String, String> loginParam) {
         baseRequest = Maps.newHashMap();
         String DeviceID = "e" + ((Double) (Math.random() * (1000000000000000L))).longValue();
@@ -159,6 +168,7 @@ public class App {
         baseRequest.put("Skey", loginParam.get("skey"));
         baseRequest.put("Uin", loginParam.get("wxuin"));
     }
+
 
     public static WXUserModel getByUserName(List<WXUserModel> wxUserModelList, String nickName) {
         try {
@@ -172,6 +182,7 @@ public class App {
         }
         return null;
     }
+
 
     public static WXUserModel getWCUserModelByContactMap(Map<String, Object> contactMap) {
         Set<String> keys = contactMap.keySet();
@@ -196,6 +207,7 @@ public class App {
         return wxUserModel;
     }
 
+
     public static String getWeChatInitInfoByLoginParam(Map<String, String> loginParam) {
         Map<String, String> param = Maps.newHashMap();
         Map<String, Map<String, String>> requestParam = Maps.newHashMap();
@@ -207,6 +219,7 @@ public class App {
         return HttpUtil.postJson(initUrl, new Gson().toJson(requestParam), null);
 
     }
+
 
     public static String listWxContact(Map<String, String> loginParam, CookieStore cookieStore) {
         String url = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxgetcontact?lang=zh_CN&pass_ticket=" +
