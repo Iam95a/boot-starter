@@ -10,6 +10,8 @@ import pub.chenhuang.pojo.User;
 import pub.chenhuang.service.UserService;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @SpringBootApplication
 @Controller
@@ -25,7 +27,10 @@ public class WebApplication {
 
 	@RequestMapping("/chen")
 	@ResponseBody
-	public User getUser(){
+	public User getUser(HttpServletRequest request){
+		HttpSession session=request.getSession();
+
+
 		return userService.getUserByName("admin");
 	}
 }
